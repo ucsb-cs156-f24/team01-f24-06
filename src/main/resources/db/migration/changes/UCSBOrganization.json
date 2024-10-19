@@ -1,0 +1,71 @@
+{ "databaseChangeLog": [
+    {
+        "changeSet": {
+            "id": "UCSBOrganization-1",
+            "author": "MattP",
+            "preConditions": [
+                {
+                    "onFail": "MARK_RAN"
+                },
+                {
+                    "not": [
+                        {
+                            "tableExists": {
+                                "tableName": "UCSBORGANIZATIONS"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "changes": [
+                {
+                    "createTable": {
+                        "columns": [
+                            {
+                                "column": {
+                                    "constraints": {
+                                        "primaryKey": true,
+                                        "primaryKeyName": "CONSTRAINT_2"
+                                    },
+                                    "name": "ORGCODE",
+                                    "type": "VARCHAR(255)"
+                                }
+                            },
+                            {
+                                "column": {
+                                    "constraints": {
+                                        "nullable": false
+                                    },
+                                    "name": "ORGTRANSLATIONSHORT",
+                                    "type": "VARCHAR(255)"
+                                }
+                            },
+                            {
+                                "column": {
+                                    "constraints": {
+                                        "nullable": false
+                                    },
+                                    "name": "ORGTRANSLATION",
+                                    "type": "VARCHAR(255)"
+                                }
+                            },
+                            {
+                                "column": {
+                                    "constraints": {
+                                        "nullable": false
+                                    },
+                                    "name": "INACTIVE",
+                                    "type": "BOOLEAN"
+                                }
+                            }
+                        ]
+                    ,
+                    "tableName": "UCSBORGANIZATIONS"
+                    }
+                }
+            ]
+        }
+    }
+]
+
+}
