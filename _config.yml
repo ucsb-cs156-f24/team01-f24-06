@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f24/team01-f24-06
 owner: ucsb-cs156-f24
 repo_name: team01-f24-06
-pull_requests: [{"author":{"id":"U_kgDOBs-ReA","is_bot":false,"login":"michaelljiang","name":"Michael Jiang"},"headRefName":"mj-RecommendationRequest-create-db","number":44,"title":"MJ - Creating Recommendation Requests Database Table","url":"https://github.com/ucsb-cs156-f24/team01-f24-06/pull/44"},{"author":{"id":"MDQ6VXNlcjQzMzk0Njg0","is_bot":false,"login":"chriswlai","name":"Christopher Lai"},"headRefName":"chris-readmetable","number":43,"title":"update README table","url":"https://github.com/ucsb-cs156-f24/team01-f24-06/pull/43"}]
+pull_requests: [{"author":{"id":"U_kgDOBs-ReA","is_bot":false,"login":"michaelljiang","name":"Michael Jiang"},"headRefName":"mj-RecommendationRequest-create-db","number":44,"title":"MJ - Creating Recommendation Requests Database Table","url":"https://github.com/ucsb-cs156-f24/team01-f24-06/pull/44"}]
