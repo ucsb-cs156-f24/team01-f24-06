@@ -15,7 +15,7 @@ Deployments:
 | Table                     | Name         | Github Id |
 |---------------------------|--------------|-----------|
 | UCSBDiningCommonsMenuItem |   Xinghan        |    SexyCarrots       |
-| UCSBOrganization          |       Chris       |           |
+| UCSBOrganization          |       Chris       |    chriswlai       |
 | RecommendationRequest     |      Michael        |           |
 | MenuItemReview            |   Skanda           |           |
 | HelpRequest               |      Edward        |           |
