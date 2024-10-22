@@ -1,8 +1,8 @@
 { "databaseChangeLog": [
     {
         "changeSet": {
-            "id": "UCSBOrganization-1",
-            "author": "MattP",
+            "id": "UCSBOrganization-4",
+            "author": "ChrisL",
             "preConditions": [
                 {
                     "onFail": "MARK_RAN"
@@ -25,7 +25,7 @@
                                 "column": {
                                     "constraints": {
                                         "primaryKey": true,
-                                        "primaryKeyName": "CONSTRAINT_2"
+                                        "primaryKeyName": "UCSBORGANIZATIONS_PK"
                                     },
                                     "name": "ORGCODE",
                                     "type": "VARCHAR(255)"
