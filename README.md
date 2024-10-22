@@ -9,14 +9,18 @@ Deployments:
 * QA: <https://team01-qa.dokku-06.cs.ucsb.edu>
 
 
-| Table                     | Name         | Github Id |
-|---------------------------|--------------|-----------|
-| UCSBDiningCommonsMenuItem |   Xinghan        |    SexyCarrots       |
-| UCSBOrganization          |       Chris       |    chriswlai       |
-| RecommendationRequest     |      Michael        |       michaelljiang    |
-| MenuItemReview            |   Skanda           |   skanda-vasishta        |
-| HelpRequest               |      Edward        |    ELEXG       |
-| Articles                  |     Victor         |      vprchlik     |
+
+| Table                     | Name         | Github Id         |
+|---------------------------|--------------|-------------------|
+| UCSBDiningCommonsMenuItem | Xinghan      | SexyCarrots       |
+| UCSBOrganization          | Chris        | chriswlai         |
+| RecommendationRequest     | Michael      | michaelljiang     |
+| MenuItemReview            | Skanda       | skanda-vasishta   |
+| HelpRequest               | Edward       | ELEXG             |
+| Articles                  | Victor       | vprchlik          |
+
+
+
 
 Remember though, that in spite of these initial  assignments, it is still
 a team project.  Please help other team members to finish their work
