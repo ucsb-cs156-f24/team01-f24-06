@@ -97,6 +97,62 @@
           }
         ]
       }
+    },
+    {
+      "changeSet": {
+        "id": "RecommendationRequest-3",
+        "author": "MichaelJ",
+        "changes": [
+          {
+            "renameColumn": {
+              "columnDataType": "VARCHAR(255)",
+              "newColumnName": "REQUESTEREMAIL",
+              "oldColumnName": "requesterEmail",
+              "tableName": "recommendationrequest"
+            }
+          },
+          {
+            "renameColumn": {
+              "columnDataType": "VARCHAR(255)",
+              "newColumnName": "PROFESSOREMAIL",
+              "oldColumnName": "professorEmail",
+              "tableName": "recommendationrequest"
+            }
+          },
+          {
+            "renameColumn": {
+              "columnDataType": "VARCHAR(255)",
+              "newColumnName": "EXPLANATION",
+              "oldColumnName": "explanation",
+              "tableName": "recommendationrequest"
+            }
+          },
+          {
+            "renameColumn": {
+              "columnDataType": "TIMESTAMP",
+              "newColumnName": "DATEREQUESTED",
+              "oldColumnName": "dateRequested",
+              "tableName": "recommendationrequest"
+            }
+          },
+          {
+            "renameColumn": {
+              "columnDataType": "TIMESTAMP",
+              "newColumnName": "DATENEEDED",
+              "oldColumnName": "dateNeeded",
+              "tableName": "recommendationrequest"
+            }
+          },
+          {
+            "renameColumn": {
+              "columnDataType": "BOOLEAN",
+              "newColumnName": "DONE",
+              "oldColumnName": "done",
+              "tableName": "recommendationrequest"
+            }
+          }
+        ]
+      }
     }
   ]
 }
