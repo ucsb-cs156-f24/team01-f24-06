@@ -26,7 +26,7 @@ import jakarta.validation.Valid;
 @RequestMapping(&quot;/api/ucsborganizations&quot;)
 @RestController
 <span class="fc" id="L28">@Slf4j</span>
-<span class="fc" id="L29">public class UCSBOrganizationController {</span>
+<span class="fc" id="L29">public class UCSBOrganizationController extends ApiController {</span>
     @Autowired
     UCSBOrganizationRepository ucsbOrganizationRepository;
 
@@ -40,6 +40,22 @@ import jakarta.validation.Valid;
     public Iterable&lt;UCSBOrganization&gt; allOrganizations() {
 <span class="fc" id="L41">        Iterable&lt;UCSBOrganization&gt; orgs = ucsbOrganizationRepository.findAll();</span>
 <span class="fc" id="L42">        return orgs;</span>
+    }
+
+    /**
+     * This method returns a single organization.
+     * @param orgCode code of the organization
+     * @return a single organization
+     */
+    @Operation(summary= &quot;Get a single organization&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @GetMapping(&quot;&quot;)
+    public UCSBOrganization getById(
+            @Parameter(name=&quot;orgCode&quot;) @RequestParam String orgCode) {
+<span class="fc" id="L55">        UCSBOrganization org = ucsbOrganizationRepository.findById(orgCode)</span>
+<span class="fc" id="L56">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBOrganization.class, orgCode));</span>
+
+<span class="fc" id="L58">        return org;</span>
     }
 
     /**
@@ -61,15 +77,15 @@ import jakarta.validation.Valid;
         )
         {
 
-<span class="fc" id="L64">        UCSBOrganization org = new UCSBOrganization();</span>
-<span class="fc" id="L65">        org.setOrgCode(orgCode);</span>
-<span class="fc" id="L66">        org.setOrgTranslationShort(orgTranslationShort);</span>
-<span class="fc" id="L67">        org.setOrgTranslation(orgTranslation);</span>
-<span class="fc" id="L68">        org.setInactive(inactive);</span>
+<span class="fc" id="L80">        UCSBOrganization org = new UCSBOrganization();</span>
+<span class="fc" id="L81">        org.setOrgCode(orgCode);</span>
+<span class="fc" id="L82">        org.setOrgTranslationShort(orgTranslationShort);</span>
+<span class="fc" id="L83">        org.setOrgTranslation(orgTranslation);</span>
+<span class="fc" id="L84">        org.setInactive(inactive);</span>
 
-<span class="fc" id="L70">        UCSBOrganization savedOrg = ucsbOrganizationRepository.save(org);</span>
+<span class="fc" id="L86">        UCSBOrganization savedOrg = ucsbOrganizationRepository.save(org);</span>
 
-<span class="fc" id="L72">        return savedOrg;</span>
+<span class="fc" id="L88">        return savedOrg;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
