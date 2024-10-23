@@ -1,5 +1,6 @@
 package edu.ucsb.cs156.example.controllers;
 
+import edu.ucsb.cs156.example.entities.UCSBDiningCommons;
 import edu.ucsb.cs156.example.entities.UCSBOrganization;
 import edu.ucsb.cs156.example.errors.EntityNotFoundException;
 import edu.ucsb.cs156.example.repositories.UCSBOrganizationRepository;
@@ -103,5 +104,30 @@ public class UCSBOrganizationController extends ApiController {
 
         ucsbOrganizationRepository.delete(orgs);
         return genericMessage("UCSBOrganization with id %s deleted".formatted(orgCode));
+  
+    /**
+     * Update a single org. Accessible only to users with the role "ROLE_ADMIN".
+     * @param orgCode the code of the org to update
+     * @param incoming the new org contents
+     * @return the updated org object
+     */
+    @Operation(summary= "Update a single organization")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("")
+    public UCSBOrganization updateOrgs(
+            @Parameter(name="orgCode") @RequestParam String orgCode,
+            @RequestBody @Valid UCSBOrganization incoming) {
+
+        UCSBOrganization orgs = ucsbOrganizationRepository.findById(orgCode)
+                .orElseThrow(() -> new EntityNotFoundException(UCSBOrganization.class, orgCode));
+
+        orgs.setOrgCode(incoming.getOrgCode());
+        orgs.setOrgTranslationShort(incoming.getOrgTranslationShort());
+        orgs.setOrgTranslation(incoming.getOrgTranslation());
+        orgs.setInactive(incoming.getInactive());
+
+        ucsbOrganizationRepository.save(orgs);
+
+        return orgs;
     }
 }

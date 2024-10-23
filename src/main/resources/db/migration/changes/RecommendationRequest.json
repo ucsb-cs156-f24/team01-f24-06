@@ -75,6 +75,28 @@
           }
         ]
       }
+    },
+    {
+      "changeSet": {
+        "id": "RecommendationRequest-2",
+        "author": "MichaelJ",
+        "changes": [
+          {
+            "modifyDataType": {
+              "columnName": "dateRequested",
+              "newDataType": "TIMESTAMP",
+              "tableName": "recommendationrequest"
+            }
+          },
+          {
+            "modifyDataType": {
+              "columnName": "dateNeeded",
+              "newDataType": "TIMESTAMP",
+              "tableName": "recommendationrequest"
+            }
+          }
+        ]
+      }
     }
   ]
 }
