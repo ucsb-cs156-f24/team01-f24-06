@@ -9,7 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * This is a JPA entity that represents a recommendation request.
@@ -28,7 +28,7 @@ public class RecommendationRequest {
     private String requesterEmail;
     private String professorEmail;
     private String explanation;
-    private LocalDateTime dateRequested;
-    private LocalDateTime dateNeeded;
+    private LocalDate dateRequested;
+    private LocalDate dateNeeded;
     private boolean done;
 }
