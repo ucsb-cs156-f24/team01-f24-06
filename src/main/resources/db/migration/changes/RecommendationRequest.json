@@ -54,13 +54,13 @@
                 {
                   "column": {
                     "name": "dateRequested",
-                    "type": "DATE"
+                    "type": "TIMESTAMP"
                   }
                 },
                 {
                   "column": {
                     "name": "dateNeeded",
-                    "type": "DATE"
+                    "type": "TIMESTAMP"
                   }
                 },
                 {
