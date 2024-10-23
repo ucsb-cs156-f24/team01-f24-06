@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f24/team01-f24-06
 owner: ucsb-cs156-f24
 repo_name: team01-f24-06
-pull_requests: []
+pull_requests: [{"author":{"id":"MDQ6VXNlcjQzMzk0Njg0","is_bot":false,"login":"chriswlai","name":"Christopher Lai"},"headRefName":"cl-UCSBOrganization-put","number":52,"title":"add PUT capability for ucsb organization","url":"https://github.com/ucsb-cs156-f24/team01-f24-06/pull/52"}]
