@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f24/team01-f24-06
 owner: ucsb-cs156-f24
 repo_name: team01-f24-06
-pull_requests: [{"author":{"id":"MDQ6VXNlcjU1MTYzOTcx","is_bot":false,"login":"ELEXG","name":"Edward Garcia"},"headRefName":"eg-HelpRequest-create-db","number":49,"title":"create database table, entity, repository, migration file for HelpReq…","url":"https://github.com/ucsb-cs156-f24/team01-f24-06/pull/49"}]
+pull_requests: []
