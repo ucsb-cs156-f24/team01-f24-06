@@ -54,13 +54,13 @@
                 {
                   "column": {
                     "name": "dateRequested",
-                    "type": "TIMESTAMP"
+                    "type": "DATE"
                   }
                 },
                 {
                   "column": {
                     "name": "dateNeeded",
-                    "type": "TIMESTAMP"
+                    "type": "DATE"
                   }
                 },
                 {
@@ -70,6 +70,28 @@
                   }
                 }
               ],
+              "tableName": "recommendationrequest"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "RecommendationRequest-2",
+        "author": "MichaelJ",
+        "changes": [
+          {
+            "modifyDataType": {
+              "columnName": "dateRequested",
+              "newDataType": "TIMESTAMP",
+              "tableName": "recommendationrequest"
+            }
+          },
+          {
+            "modifyDataType": {
+              "columnName": "dateNeeded",
+              "newDataType": "TIMESTAMP",
               "tableName": "recommendationrequest"
             }
           }

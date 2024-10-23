@@ -63,6 +63,7 @@ public class RecommendationRequestController extends ApiController{
      * @param explanation the explanation of the request
      * @param dateRequested the date the request was made
      * @param dateNeeded the date the request is needed
+     * @param done whether the request is done
      * @return the created RecommendationRequest
     */
     
@@ -74,7 +75,8 @@ public class RecommendationRequestController extends ApiController{
         @Parameter(name="professorEmail") @RequestParam String professorEmail,
         @Parameter(name="explanation") @RequestParam String explanation,
         @Parameter(name="dateRequested") @RequestParam("dateRequested") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateRequested,
-        @Parameter(name="dateNeeded") @RequestParam("dateNeeded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateNeeded)
+        @Parameter(name="dateNeeded") @RequestParam("dateNeeded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateNeeded,
+        @Parameter(name="done") @RequestParam boolean done)
         throws JsonProcessingException {
 
             log.info("date_Requested{}", dateRequested);
@@ -85,7 +87,7 @@ public class RecommendationRequestController extends ApiController{
             recommendationRequest.setExplanation(explanation);
             recommendationRequest.setDateRequested(dateRequested);
             recommendationRequest.setDateNeeded(dateNeeded);
-            recommendationRequest.setDone(false);
+            recommendationRequest.setDone(done);
 
             RecommendationRequest savedRecommendationRequest = recommendationRequestRepository.save(recommendationRequest);
 
