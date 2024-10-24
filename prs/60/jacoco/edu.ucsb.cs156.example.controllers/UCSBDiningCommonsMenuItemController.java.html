@@ -76,7 +76,7 @@ import java.time.LocalDateTime;
      * This method creates a new UCSB Dining Commons Menu Item. Accessible only to users with the role &quot;ROLE_ADMIN&quot;.
      * @param name name of the UCSB Dining Commons Menu Item
      * 
-     * @param description description of the UCSB Dining Commons Menu Item
+     
      * @return the save UCSB Dining Commons Menu Item (with it's id field set by the database)
      */
     @Operation(summary = &quot;Create a new UCSB Dining Commons Menu Item&quot;)
@@ -113,12 +113,6 @@ import java.time.LocalDateTime;
 <span class="fc" id="L113">        return genericMessage(&quot;UCSBDiningCommonsMenuItem with id %s deleted&quot;.formatted(id));</span>
     }
 
-    /**
-     * Update a single  UCSB Dining Commons Menu Item. Accessible only to users with the role &quot;ROLE_ADMIN&quot;.
-     * @param id id of the  UCSB Dining Commons Menu Item to update
-     * @param incoming the new restaurant contents
-     * @return the updated restaurant object
-     */
     @Operation(summary = &quot;Update a single  UCSB Dining Commons Menu Item&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
     @PutMapping(&quot;&quot;)
@@ -126,16 +120,16 @@ import java.time.LocalDateTime;
             @Parameter(name = &quot;id&quot;) @RequestParam Long id,
             @RequestBody @Valid UCSBDiningCommonsMenuItem incoming) {
 
-<span class="fc" id="L129">                UCSBDiningCommonsMenuItem item = repo.findById(id)</span>
-<span class="fc" id="L130">                .orElseThrow(() -&gt; new EntityNotFoundException(Restaurant.class, id));</span>
+<span class="fc" id="L123">                UCSBDiningCommonsMenuItem item = repo.findById(id)</span>
+<span class="fc" id="L124">                .orElseThrow(() -&gt; new EntityNotFoundException(Restaurant.class, id));</span>
 
-<span class="fc" id="L132">        item.setName(incoming.getName());</span>
-<span class="fc" id="L133">        item.setStation(incoming.getStation());</span>
-<span class="fc" id="L134">        item.setDiningCommonsCode(incoming.getDiningCommonsCode());</span>
+<span class="fc" id="L126">        item.setName(incoming.getName());</span>
+<span class="fc" id="L127">        item.setStation(incoming.getStation());</span>
+<span class="fc" id="L128">        item.setDiningCommonsCode(incoming.getDiningCommonsCode());</span>
 
-<span class="fc" id="L136">        repo.save(item);</span>
+<span class="fc" id="L130">        repo.save(item);</span>
 
-<span class="fc" id="L138">        return item;</span>
+<span class="fc" id="L132">        return item;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
