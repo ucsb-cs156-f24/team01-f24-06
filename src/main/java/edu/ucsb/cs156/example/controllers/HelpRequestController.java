@@ -53,23 +53,6 @@ public class HelpRequestController {
     }
 
     /**
-     * Get a single help request by id
-     * 
-     * @param id the id of the help request
-     * @return a help request
-     */
-    @Operation(summary= "Get a single help request")
-    @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("")
-    public HelpRequest getById(
-            @Parameter(name="id") @RequestParam Long id) {
-        HelpRequest helpRequest = helpRequestRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(HelpRequest.class, id));
-
-        return helpRequest;
-    }
-
-    /**
      * Create a new help request
      * 
      * @param requesterEmail      email of help requester
