@@ -19,12 +19,12 @@ import lombok.NoArgsConstructor;
 public class MenuItemReview {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id; //done
+    private long id; 
 
-    private long itemId; //done
-    private String reviewerEmail; //done
-    private int stars; //done
-    private LocalDateTime dateReviewed; //done
-    private String comments; //done
+    private long itemId; 
+    private String reviewerEmail; 
+    private int stars; 
+    private LocalDateTime dateReviewed; 
+    private String comments; 
 
 }
