@@ -76,7 +76,7 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
      * This method creates a new UCSB Dining Commons Menu Item. Accessible only to users with the role "ROLE_ADMIN".
      * @param name name of the UCSB Dining Commons Menu Item
      * 
-     * @param description description of the UCSB Dining Commons Menu Item
+     
      * @return the save UCSB Dining Commons Menu Item (with it's id field set by the database)
      */
     @Operation(summary = "Create a new UCSB Dining Commons Menu Item")
@@ -113,12 +113,6 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
         return genericMessage("UCSBDiningCommonsMenuItem with id %s deleted".formatted(id));
     }
 
-    /**
-     * Update a single  UCSB Dining Commons Menu Item. Accessible only to users with the role "ROLE_ADMIN".
-     * @param id id of the  UCSB Dining Commons Menu Item to update
-     * @param incoming the new restaurant contents
-     * @return the updated restaurant object
-     */
     @Operation(summary = "Update a single  UCSB Dining Commons Menu Item")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("")
