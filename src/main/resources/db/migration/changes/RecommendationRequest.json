@@ -27,7 +27,7 @@
                     "autoIncrement": true,
                     "constraints": {
                       "primaryKey": true,
-                      "primaryKeyName": "CONSTRAINT_6"
+                      "primaryKeyName": "RECOMMENDATIONREQUEST_PK"
                     },
                     "name": "id",
                     "type": "BIGINT"
@@ -35,13 +35,13 @@
                 },
                 {
                   "column": {
-                    "name": "requesterEmail",
+                    "name": "requesteremail",
                     "type": "VARCHAR(255)"
                   }
                 },
                 {
                   "column": {
-                    "name": "professorEmail",
+                    "name": "professoremail",
                     "type": "VARCHAR(255)"
                   }
                 },
@@ -53,14 +53,14 @@
                 },
                 {
                   "column": {
-                    "name": "dateRequested",
-                    "type": "DATE"
+                    "name": "daterequested",
+                    "type": "TIMESTAMP"
                   }
                 },
                 {
                   "column": {
-                    "name": "dateNeeded",
-                    "type": "DATE"
+                    "name": "dateneeded",
+                    "type": "TIMESTAMP"
                   }
                 },
                 {
@@ -70,28 +70,6 @@
                   }
                 }
               ],
-              "tableName": "recommendationrequest"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "changeSet": {
-        "id": "RecommendationRequest-2",
-        "author": "MichaelJ",
-        "changes": [
-          {
-            "modifyDataType": {
-              "columnName": "dateRequested",
-              "newDataType": "TIMESTAMP",
-              "tableName": "recommendationrequest"
-            }
-          },
-          {
-            "modifyDataType": {
-              "columnName": "dateNeeded",
-              "newDataType": "TIMESTAMP",
               "tableName": "recommendationrequest"
             }
           }
