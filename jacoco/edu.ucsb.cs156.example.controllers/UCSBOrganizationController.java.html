@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UCSBOrganizationController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">team01</a> &gt; <a href="index.source.html" class="el_package">edu.ucsb.cs156.example.controllers</a> &gt; <span class="el_source">UCSBOrganizationController.java</span></div><h1>UCSBOrganizationController.java</h1><pre class="source lang-java linenums">package edu.ucsb.cs156.example.controllers;
 
-import edu.ucsb.cs156.example.entities.UCSBDiningCommons;
 import edu.ucsb.cs156.example.entities.UCSBOrganization;
 import edu.ucsb.cs156.example.errors.EntityNotFoundException;
 import edu.ucsb.cs156.example.repositories.UCSBOrganizationRepository;
@@ -26,8 +25,8 @@ import jakarta.validation.Valid;
 @Tag(name = &quot;UCSBOrganizations&quot;)
 @RequestMapping(&quot;/api/ucsborganizations&quot;)
 @RestController
-<span class="fc" id="L29">@Slf4j</span>
-<span class="fc" id="L30">public class UCSBOrganizationController extends ApiController {</span>
+<span class="fc" id="L28">@Slf4j</span>
+<span class="fc" id="L29">public class UCSBOrganizationController extends ApiController {</span>
     @Autowired
     UCSBOrganizationRepository ucsbOrganizationRepository;
 
@@ -39,8 +38,8 @@ import jakarta.validation.Valid;
     @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
     @GetMapping(&quot;/all&quot;)
     public Iterable&lt;UCSBOrganization&gt; allOrganizations() {
-<span class="fc" id="L42">        Iterable&lt;UCSBOrganization&gt; orgs = ucsbOrganizationRepository.findAll();</span>
-<span class="fc" id="L43">        return orgs;</span>
+<span class="fc" id="L41">        Iterable&lt;UCSBOrganization&gt; orgs = ucsbOrganizationRepository.findAll();</span>
+<span class="fc" id="L42">        return orgs;</span>
     }
 
     /**
@@ -53,10 +52,10 @@ import jakarta.validation.Valid;
     @GetMapping(&quot;&quot;)
     public UCSBOrganization getById(
             @Parameter(name=&quot;orgCode&quot;) @RequestParam String orgCode) {
-<span class="fc" id="L56">        UCSBOrganization org = ucsbOrganizationRepository.findById(orgCode)</span>
-<span class="fc" id="L57">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBOrganization.class, orgCode));</span>
+<span class="fc" id="L55">        UCSBOrganization org = ucsbOrganizationRepository.findById(orgCode)</span>
+<span class="fc" id="L56">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBOrganization.class, orgCode));</span>
 
-<span class="fc" id="L59">        return org;</span>
+<span class="fc" id="L58">        return org;</span>
     }
 
     /**
@@ -78,15 +77,32 @@ import jakarta.validation.Valid;
         )
         {
 
-<span class="fc" id="L81">        UCSBOrganization org = new UCSBOrganization();</span>
-<span class="fc" id="L82">        org.setOrgCode(orgCode);</span>
-<span class="fc" id="L83">        org.setOrgTranslationShort(orgTranslationShort);</span>
-<span class="fc" id="L84">        org.setOrgTranslation(orgTranslation);</span>
-<span class="fc" id="L85">        org.setInactive(inactive);</span>
+<span class="fc" id="L80">        UCSBOrganization org = new UCSBOrganization();</span>
+<span class="fc" id="L81">        org.setOrgCode(orgCode);</span>
+<span class="fc" id="L82">        org.setOrgTranslationShort(orgTranslationShort);</span>
+<span class="fc" id="L83">        org.setOrgTranslation(orgTranslation);</span>
+<span class="fc" id="L84">        org.setInactive(inactive);</span>
 
-<span class="fc" id="L87">        UCSBOrganization savedOrg = ucsbOrganizationRepository.save(org);</span>
+<span class="fc" id="L86">        UCSBOrganization savedOrg = ucsbOrganizationRepository.save(org);</span>
 
-<span class="fc" id="L89">        return savedOrg;</span>
+<span class="fc" id="L88">        return savedOrg;</span>
+    }
+
+    /**
+     * Delete an organization. Accessible only to users with the role &quot;ROLE_ADMIN&quot;.
+     * @param orgCode code of the organization
+     * @return a message indiciating the organization was deleted
+     */
+    @Operation(summary= &quot;Delete a UCSBOrganization&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @DeleteMapping(&quot;&quot;)
+    public Object deleteOrgs(
+            @Parameter(name=&quot;orgCode&quot;) @RequestParam String orgCode) {
+<span class="fc" id="L101">        UCSBOrganization orgs = ucsbOrganizationRepository.findById(orgCode)</span>
+<span class="fc" id="L102">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBOrganization.class, orgCode));</span>
+
+<span class="fc" id="L104">        ucsbOrganizationRepository.delete(orgs);</span>
+<span class="fc" id="L105">        return genericMessage(&quot;UCSBOrganization with id %s deleted&quot;.formatted(orgCode));</span>
     }
 
     /**
@@ -102,17 +118,17 @@ import jakarta.validation.Valid;
             @Parameter(name=&quot;orgCode&quot;) @RequestParam String orgCode,
             @RequestBody @Valid UCSBOrganization incoming) {
 
-<span class="fc" id="L105">        UCSBOrganization orgs = ucsbOrganizationRepository.findById(orgCode)</span>
-<span class="fc" id="L106">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBOrganization.class, orgCode));</span>
+<span class="fc" id="L121">        UCSBOrganization orgs = ucsbOrganizationRepository.findById(orgCode)</span>
+<span class="fc" id="L122">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBOrganization.class, orgCode));</span>
 
-<span class="fc" id="L108">        orgs.setOrgCode(incoming.getOrgCode());</span>
-<span class="fc" id="L109">        orgs.setOrgTranslationShort(incoming.getOrgTranslationShort());</span>
-<span class="fc" id="L110">        orgs.setOrgTranslation(incoming.getOrgTranslation());</span>
-<span class="fc" id="L111">        orgs.setInactive(incoming.getInactive());</span>
+<span class="fc" id="L124">        orgs.setOrgCode(incoming.getOrgCode());</span>
+<span class="fc" id="L125">        orgs.setOrgTranslationShort(incoming.getOrgTranslationShort());</span>
+<span class="fc" id="L126">        orgs.setOrgTranslation(incoming.getOrgTranslation());</span>
+<span class="fc" id="L127">        orgs.setInactive(incoming.getInactive());</span>
 
-<span class="fc" id="L113">        ucsbOrganizationRepository.save(orgs);</span>
+<span class="fc" id="L129">        ucsbOrganizationRepository.save(orgs);</span>
 
-<span class="fc" id="L115">        return orgs;</span>
+<span class="fc" id="L131">        return orgs;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
