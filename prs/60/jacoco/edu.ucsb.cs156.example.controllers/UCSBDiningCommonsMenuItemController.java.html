@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UCSBDiningCommonsMenuItemController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">team01</a> &gt; <a href="index.source.html" class="el_package">edu.ucsb.cs156.example.controllers</a> &gt; <span class="el_source">UCSBDiningCommonsMenuItemController.java</span></div><h1>UCSBDiningCommonsMenuItemController.java</h1><pre class="source lang-java linenums">package edu.ucsb.cs156.example.controllers;
+import edu.ucsb.cs156.example.entities.Restaurant;
+import edu.ucsb.cs156.example.entities.UCSBDiningCommons;
+import edu.ucsb.cs156.example.entities.UCSBDiningCommonsMenuItem;
+
+
+import edu.ucsb.cs156.example.errors.EntityNotFoundException;
+import edu.ucsb.cs156.example.repositories.UCSBDiningCommonsMenuItemRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.validation.Valid;
+
+
+
+import java.time.LocalDateTime;
+
+/**
+ * This is a REST controller for UCSBDates
+ */
+
+@Tag(name = &quot;UCSBDiningCommonsMenuItem&quot;)
+@RequestMapping(&quot;/api/ucsbdiningcommonsmenuitem&quot;)
+@RestController
+<span class="fc" id="L41">@Slf4j</span>
+<span class="fc" id="L42">public class UCSBDiningCommonsMenuItemController extends ApiController {</span>
+
+    @Autowired
+    UCSBDiningCommonsMenuItemRepository repo;
+
+    /**
+     * List all UCSB Dining Commons Menu Items
+     * 
+     * @return an iterable of UCSB Dining Commons Menu Items
+     */
+    @Operation(summary= &quot;List all ucsb Dinning Commons Menu items&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @GetMapping(&quot;/all&quot;)
+    public Iterable&lt;UCSBDiningCommonsMenuItem&gt; allUCSBDiningCommonsMenuItem() {
+<span class="fc" id="L56">        Iterable&lt;UCSBDiningCommonsMenuItem&gt; items = repo.findAll();</span>
+<span class="fc" id="L57">        return items;</span>
+    }
+    /**
+     * This method returns a single UCSB Dining Commons Menu Item.
+     * @param id id of the UCSB Dining Commons Menu Item to get
+     * @return a single UCSB Dining Commons Menu Item
+     */
+    @Operation(summary = &quot;Get a single restaurant&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @GetMapping(&quot;&quot;)
+    public UCSBDiningCommonsMenuItem getById(
+            @Parameter(name = &quot;id&quot;) @RequestParam Long id) {
+<span class="fc" id="L69">                UCSBDiningCommonsMenuItem item = repo.findById(id)</span>
+<span class="fc" id="L70">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));</span>
+
+<span class="fc" id="L72">        return item;</span>
+    }
+
+    /**
+     * This method creates a new UCSB Dining Commons Menu Item. Accessible only to users with the role &quot;ROLE_ADMIN&quot;.
+     * @param name name of the UCSB Dining Commons Menu Item
+     * 
+     * @param description description of the UCSB Dining Commons Menu Item
+     * @return the save UCSB Dining Commons Menu Item (with it's id field set by the database)
+     */
+    @Operation(summary = &quot;Create a new UCSB Dining Commons Menu Item&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @PostMapping(&quot;/post&quot;)
+    public UCSBDiningCommonsMenuItem postUCSBDiningCommonsMenuItem(
+            @Parameter(name = &quot;name&quot;) @RequestParam String name,
+            @Parameter(name = &quot;station&quot;) @RequestParam String station,
+            @Parameter(name = &quot;diningCommonsCode&quot;) @RequestParam String diningCommonsCode){
+<span class="fc" id="L89">                UCSBDiningCommonsMenuItem item= new UCSBDiningCommonsMenuItem();</span>
+
+<span class="fc" id="L91">        item.setName(name);</span>
+<span class="fc" id="L92">        item.setStation(station);</span>
+<span class="fc" id="L93">        item.setDiningCommonsCode(diningCommonsCode);</span>
+        
+<span class="fc" id="L95">        UCSBDiningCommonsMenuItem savedrestaurant = repo.save(item);</span>
+<span class="fc" id="L96">        return savedrestaurant;</span>
+    }
+
+    /**
+     * Deletes a  UCSB Dining Commons Menu Item. Accessible only to users with the role &quot;ROLE_ADMIN&quot;.
+     * @param id id of the  UCSB Dining Commons Menu Item to delete
+     * @return a message indicating that the  UCSB Dining Commons Menu Item was deleted
+     */
+    @Operation(summary = &quot;Delete a UCSB Dining Commons Menu Item&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @DeleteMapping(&quot;&quot;)
+    public Object deleteUCSBDiningCommonsMenuItem(
+            @Parameter(name = &quot;id&quot;) @RequestParam Long id) {
+<span class="fc" id="L109">                UCSBDiningCommonsMenuItem item = repo.findById(id)</span>
+<span class="fc" id="L110">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));</span>
+
+<span class="fc" id="L112">        repo.delete(item);</span>
+<span class="fc" id="L113">        return genericMessage(&quot;UCSBDiningCommonsMenuItem with id %s deleted&quot;.formatted(id));</span>
+    }
+
+    /**
+     * Update a single  UCSB Dining Commons Menu Item. Accessible only to users with the role &quot;ROLE_ADMIN&quot;.
+     * @param id id of the  UCSB Dining Commons Menu Item to update
+     * @param incoming the new restaurant contents
+     * @return the updated restaurant object
+     */
+    @Operation(summary = &quot;Update a single  UCSB Dining Commons Menu Item&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @PutMapping(&quot;&quot;)
+    public UCSBDiningCommonsMenuItem updateRestaurant(
+            @Parameter(name = &quot;id&quot;) @RequestParam Long id,
+            @RequestBody @Valid UCSBDiningCommonsMenuItem incoming) {
+
+<span class="fc" id="L129">                UCSBDiningCommonsMenuItem item = repo.findById(id)</span>
+<span class="fc" id="L130">                .orElseThrow(() -&gt; new EntityNotFoundException(Restaurant.class, id));</span>
+
+<span class="fc" id="L132">        item.setName(incoming.getName());</span>
+<span class="fc" id="L133">        item.setStation(incoming.getStation());</span>
+<span class="fc" id="L134">        item.setDiningCommonsCode(incoming.getDiningCommonsCode());</span>
+
+<span class="fc" id="L136">        repo.save(item);</span>
+
+<span class="fc" id="L138">        return item;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
