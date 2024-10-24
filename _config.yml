@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f24/team01-f24-06
 owner: ucsb-cs156-f24
 repo_name: team01-f24-06
-pull_requests: [{"author":{"id":"MDQ6VXNlcjYzNTg4NzIx","is_bot":false,"login":"SexyCarrots","name":"Xinghan Yang"},"headRefName":"xinghan-UCSBDiningCommonsMenuItem-create-db","number":60,"title":"Finish Menu Item","url":"https://github.com/ucsb-cs156-f24/team01-f24-06/pull/60"},{"author":{"id":"U_kgDOBs-ReA","is_bot":false,"login":"michaelljiang","name":"Michael Jiang"},"headRefName":"mj-delete-recReq","number":59,"title":"MJ - DELETE ENDPOINT for Recommendation Request","url":"https://github.com/ucsb-cs156-f24/team01-f24-06/pull/59"}]
+pull_requests: [{"author":{"id":"U_kgDOBs-ReA","is_bot":false,"login":"michaelljiang","name":"Michael Jiang"},"headRefName":"mj-delete-recReq","number":59,"title":"MJ - DELETE ENDPOINT for Recommendation Request","url":"https://github.com/ucsb-cs156-f24/team01-f24-06/pull/59"}]
