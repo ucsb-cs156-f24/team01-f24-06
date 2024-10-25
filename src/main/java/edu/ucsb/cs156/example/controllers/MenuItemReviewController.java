@@ -44,6 +44,8 @@ public class MenuItemReviewController extends ApiController {
      * 
      * @return an iterable of MenuItemReviews
      */
+    @Operation(summary= "List all menu items")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<MenuItemReview> allMenuItemReviews() {
         Iterable<MenuItemReview> menuItemReviews = menuItemReviewRepository.findAll();
@@ -62,6 +64,8 @@ public class MenuItemReviewController extends ApiController {
      * @param comments the comments left by the reviewer about the menu item
      * @return the saved ucsbdate
      */
+    @Operation(summary= "Create a new menu item review")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
     public MenuItemReview postMenuItemReview(
             @Parameter(name="itemId") @RequestParam long itemId,
