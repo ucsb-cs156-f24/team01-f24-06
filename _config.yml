@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f24/team01-f24-06
 owner: ucsb-cs156-f24
 repo_name: team01-f24-06
-pull_requests: [{"author":{"id":"MDQ6VXNlcjU1MTYzOTcx","is_bot":false,"login":"ELEXG","name":"Edward Garcia"},"headRefName":"eg-HelpRequestController","number":63,"title":"HelpRequestController, get, and post. Closes issue #33","url":"https://github.com/ucsb-cs156-f24/team01-f24-06/pull/63"}]
+pull_requests: []
