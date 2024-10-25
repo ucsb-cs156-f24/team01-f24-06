@@ -5,8 +5,8 @@ Instructions: <https://ucsb-cs156.github.io/f24/lab/team01.html>
 
 Deployments:
 
-* Prod: <https://team01.dokku-06.cs.ucsb.edu>
-* QA: <https://team01-qa.dokku-06.cs.ucsb.edu>
+* Prod: <https://team01.dokku-06.cs.ucsb.edu/>
+* QA: <https://team01-qa.dokku-06.cs.ucsb.edu/>
 
 
 
