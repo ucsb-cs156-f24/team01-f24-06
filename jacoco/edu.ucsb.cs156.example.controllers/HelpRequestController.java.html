@@ -35,7 +35,7 @@ import java.time.LocalDateTime;
  @RequestMapping(&quot;/api/helprequest&quot;)
  @RestController
 <span class="fc" id="L37"> @Slf4j</span>
-<span class="fc" id="L38">public class HelpRequestController {</span>
+<span class="fc" id="L38">public class HelpRequestController extends ApiController {</span>
     @Autowired
     HelpRequestRepository helpRequestRepository;
 
@@ -50,6 +50,23 @@ import java.time.LocalDateTime;
     public Iterable&lt;HelpRequest&gt; allHelpRequests() {
 <span class="fc" id="L51">        Iterable&lt;HelpRequest&gt; helpRequests = helpRequestRepository.findAll();</span>
 <span class="fc" id="L52">        return helpRequests;</span>
+    }
+
+    /**
+     * Get a single help request by id
+     * 
+     * @param id the id of the help request
+     * @return a HelpRequest
+     */
+    @Operation(summary= &quot;Get a single help request&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @GetMapping(&quot;&quot;)
+    public HelpRequest getById(
+            @Parameter(name=&quot;id&quot;) @RequestParam Long id) {
+<span class="fc" id="L66">        HelpRequest helpRequest = helpRequestRepository.findById(id)</span>
+<span class="fc" id="L67">                .orElseThrow(() -&gt; new EntityNotFoundException(HelpRequest.class, id));</span>
+
+<span class="fc" id="L69">        return helpRequest;</span>
     }
 
     /**
@@ -78,19 +95,19 @@ import java.time.LocalDateTime;
         // For an explanation of @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
         // See: https://www.baeldung.com/spring-date-parameters
 
-<span class="fc" id="L81">        log.info(&quot;requestTime={}&quot;, requestTime);</span>
+<span class="fc" id="L98">        log.info(&quot;requestTime={}&quot;, requestTime);</span>
 
-<span class="fc" id="L83">        HelpRequest helpRequest = new HelpRequest();</span>
-<span class="fc" id="L84">        helpRequest.setRequesterEmail(requesterEmail);</span>
-<span class="fc" id="L85">        helpRequest.setTeamId(teamId);</span>
-<span class="fc" id="L86">        helpRequest.setTableOrBreakoutRoom(tableOrBreakoutRoom);</span>
-<span class="fc" id="L87">        helpRequest.setRequestTime(requestTime);</span>
-<span class="fc" id="L88">        helpRequest.setExplanation(explanation);</span>
-<span class="fc" id="L89">        helpRequest.setSolved(solved);</span>
+<span class="fc" id="L100">        HelpRequest helpRequest = new HelpRequest();</span>
+<span class="fc" id="L101">        helpRequest.setRequesterEmail(requesterEmail);</span>
+<span class="fc" id="L102">        helpRequest.setTeamId(teamId);</span>
+<span class="fc" id="L103">        helpRequest.setTableOrBreakoutRoom(tableOrBreakoutRoom);</span>
+<span class="fc" id="L104">        helpRequest.setRequestTime(requestTime);</span>
+<span class="fc" id="L105">        helpRequest.setExplanation(explanation);</span>
+<span class="fc" id="L106">        helpRequest.setSolved(solved);</span>
 
-<span class="fc" id="L91">        HelpRequest savedHelpRequest = helpRequestRepository.save(helpRequest);</span>
+<span class="fc" id="L108">        HelpRequest savedHelpRequest = helpRequestRepository.save(helpRequest);</span>
 
-<span class="fc" id="L93">        return savedHelpRequest;</span>
+<span class="fc" id="L110">        return savedHelpRequest;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
