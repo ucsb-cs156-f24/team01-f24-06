@@ -222,4 +222,84 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
         assertEquals("MenuItemReview with id 15 not found", json.get("message"));
         }
 
+
+        @WithMockUser(roles = { "ADMIN", "USER" })
+        @Test
+        public void admin_can_edit_an_existing_menu_item_review() throws Exception {
+        // arrange
+        LocalDateTime dateReviewedOrig = LocalDateTime.parse("2022-01-03T00:00:00");
+        LocalDateTime dateReviewedEdited = LocalDateTime.parse("2023-01-03T00:00:00");
+
+        MenuItemReview menuItemReviewOrig = MenuItemReview.builder()
+                .itemId(10)
+                .reviewerEmail("string")
+                .stars(3)
+                .dateReviewed(dateReviewedOrig)
+                .comments("string")
+                .build();
+
+        MenuItemReview menuItemReviewEdited = MenuItemReview.builder()
+                .itemId(11)
+                .reviewerEmail("string2")
+                .stars(4)
+                .dateReviewed(dateReviewedEdited)
+                .comments("string2")
+                .build();
+
+        String requestBody = mapper.writeValueAsString(menuItemReviewEdited);
+
+        when(menuItemReviewRepository.findById(eq(67L))).thenReturn(Optional.of(menuItemReviewOrig));
+
+        // act
+        MvcResult response = mockMvc.perform(
+                        put("/api/menuitemreview?id=67")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .characterEncoding("utf-8")
+                                .content(requestBody)
+                                .with(csrf()))
+                .andExpect(status().isOk()).andReturn();
+
+        // assert
+        verify(menuItemReviewRepository, times(1)).findById(67L);
+        verify(menuItemReviewRepository, times(1)).save(menuItemReviewEdited);
+        String responseString = response.getResponse().getContentAsString();
+        assertEquals(requestBody, responseString);
+        }
+
+
+        @WithMockUser(roles = { "ADMIN", "USER" })
+        @Test
+        public void admin_cannot_edit_menu_item_review_that_does_not_exist() throws Exception {
+        // arrange
+        LocalDateTime dateReviewed = LocalDateTime.parse("2022-01-03T00:00:00");
+
+        MenuItemReview editedReview = MenuItemReview.builder()
+                .itemId(1)
+                .reviewerEmail("string")
+                .stars(4)
+                .dateReviewed(dateReviewed)
+                .comments("string")
+                .build();
+
+        String requestBody = mapper.writeValueAsString(editedReview);
+
+        when(menuItemReviewRepository.findById(eq(67L))).thenReturn(Optional.empty());
+
+        // act
+        MvcResult response = mockMvc.perform(
+                        put("/api/menuitemreview?id=67")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .characterEncoding("utf-8")
+                                .content(requestBody)
+                                .with(csrf()))
+                .andExpect(status().isNotFound()).andReturn();
+
+        // assert
+        verify(menuItemReviewRepository, times(1)).findById(67L);
+        Map<String, Object> json = responseToJson(response);
+        assertEquals("MenuItemReview with id 67 not found", json.get("message"));
+        }
+
+
+
 }
