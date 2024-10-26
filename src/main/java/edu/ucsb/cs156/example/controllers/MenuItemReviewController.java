@@ -1,6 +1,7 @@
 package edu.ucsb.cs156.example.controllers;
 
 import edu.ucsb.cs156.example.entities.MenuItemReview;
+import edu.ucsb.cs156.example.entities.UCSBDate;
 // import edu.ucsb.cs156.example.entities.UCSBDate;
 import edu.ucsb.cs156.example.errors.EntityNotFoundException;
 import edu.ucsb.cs156.example.repositories.MenuItemReviewRepository;
@@ -55,9 +56,9 @@ public class MenuItemReviewController extends ApiController {
 
 
     /**
-     * Create a new date
+     * Create a new menu item
      * 
-     * @param itemId  the ID of the menu item itself
+     * @param itemId  the ID of the reviewed item itself
      * @param reviewerEmail  the email address of the reviewer of the menu item
      * @param stars the rating given to the menu item by the reviewer
      * @param dateReviewed the date/time when the menu item was reviewed
@@ -92,5 +93,25 @@ public class MenuItemReviewController extends ApiController {
 
         return savedMenuItemReview;
     }
+
+
+     /**
+     * Get a single menu item review by id
+     * 
+     * @param id the id of the menu item review
+     * @return a MenuItemReview
+     */
+    @Operation(summary= "Get a single menu item review")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("")
+    public MenuItemReview getById(
+            @Parameter(name="id") @RequestParam Long id) {
+        MenuItemReview menuItemReview = menuItemReviewRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MenuItemReview.class, id));
+
+        return menuItemReview;
+    }
+
+
 
 }
