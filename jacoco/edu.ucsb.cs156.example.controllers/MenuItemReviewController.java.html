@@ -131,6 +131,35 @@ import java.time.LocalDateTime;
     }
 
 
+    /**
+     * Update a single MenuItemReview
+     * 
+     * @param id       id of the MenuItemReview to update
+     * @param incoming the new MenuItemReview
+     * @return the updated MenuItemReview object
+     */
+    @Operation(summary= &quot;Update a single MenuItemReview&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @PutMapping(&quot;&quot;)
+    public MenuItemReview updateMenuItemReview(
+            @Parameter(name=&quot;id&quot;) @RequestParam Long id,
+            @RequestBody @Valid MenuItemReview incoming) {
+
+<span class="fc" id="L148">        MenuItemReview menuItemReview = menuItemReviewRepository.findById(id)</span>
+<span class="fc" id="L149">                .orElseThrow(() -&gt; new EntityNotFoundException(MenuItemReview.class, id));</span>
+
+<span class="fc" id="L151">        menuItemReview.setItemId(incoming.getItemId());</span>
+<span class="fc" id="L152">        menuItemReview.setReviewerEmail(incoming.getReviewerEmail());</span>
+<span class="fc" id="L153">        menuItemReview.setStars(incoming.getStars());</span>
+<span class="fc" id="L154">        menuItemReview.setComments(incoming.getComments());</span>
+<span class="fc" id="L155">        menuItemReview.setDateReviewed(incoming.getDateReviewed());</span>
+
+
+<span class="fc" id="L158">        menuItemReviewRepository.save(menuItemReview);</span>
+
+<span class="fc" id="L160">        return menuItemReview;</span>
+    }
+
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
