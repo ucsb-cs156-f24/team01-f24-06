@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f24/team01-f24-06
 owner: ucsb-cs156-f24
 repo_name: team01-f24-06
-pull_requests: [{"author":{"id":"U_kgDOB2_WkA","is_bot":false,"login":"skanda-vasishta","name":""},"headRefName":"sv-MenuItemReviewDelete","number":68,"title":"added delete support + tests for menu item review, closes #30","url":"https://github.com/ucsb-cs156-f24/team01-f24-06/pull/68"}]
+pull_requests: [{"author":{"id":"U_kgDOB2_WkA","is_bot":false,"login":"skanda-vasishta","name":""},"headRefName":"sv-MenuItemReviewPut","number":69,"title":"Added menu item review put method - closes issue #29","url":"https://github.com/ucsb-cs156-f24/team01-f24-06/pull/69"},{"author":{"id":"U_kgDOB2_WkA","is_bot":false,"login":"skanda-vasishta","name":""},"headRefName":"sv-MenuItemReviewDelete","number":68,"title":"added delete support + tests for menu item review, closes #30","url":"https://github.com/ucsb-cs156-f24/team01-f24-06/pull/68"}]
