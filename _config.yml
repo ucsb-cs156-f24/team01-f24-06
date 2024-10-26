@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f24/team01-f24-06
 owner: ucsb-cs156-f24
 repo_name: team01-f24-06
-pull_requests: [{"author":{"id":"MDQ6VXNlcjU1MTYzOTcx","is_bot":false,"login":"ELEXG","name":"Edward Garcia"},"headRefName":"eg-HelpRequest-Delete","number":66,"title":"eg - Added DELETE endpoint to delete records in HelpRequest data table","url":"https://github.com/ucsb-cs156-f24/team01-f24-06/pull/66"}]
+pull_requests: []
