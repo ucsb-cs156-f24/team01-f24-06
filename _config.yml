@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f24/team01-f24-06
 owner: ucsb-cs156-f24
 repo_name: team01-f24-06
-pull_requests: [{"author":{"id":"MDQ6VXNlcjU3NDYyMjQz","is_bot":false,"login":"vprchlik","name":"Victor Prchlik"},"headRefName":"vp-Articles-controller","number":70,"title":"vp - added Articles controller and controller tests for GET all and POST","url":"https://github.com/ucsb-cs156-f24/team01-f24-06/pull/70"}]
+pull_requests: []
