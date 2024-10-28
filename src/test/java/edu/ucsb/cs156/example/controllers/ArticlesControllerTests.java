@@ -130,76 +130,154 @@ public class ArticlesControllerTests extends ControllerTestCase {
 		assertEquals("Articles with id 7 not found", json.get("message"));
 	}
 
-    @WithMockUser(roles = { "USER" })
-    @Test
-    public void logged_in_user_can_get_all_articles() throws Exception {
+        @WithMockUser(roles = { "USER" })
+        @Test
+        public void logged_in_user_can_get_all_articles() throws Exception {
 
-            // arrange
-            LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+                // arrange
+                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
 
-            Articles article1 = Articles.builder()
-                    .title("First Article")
-                    .url("http://first.com")
-                    .explanation("First explanation")
-                    .email("first@example.com")
-                    .dateAdded(ldt1)
-                    .build();
+                Articles article1 = Articles.builder()
+                        .title("First Article")
+                        .url("http://first.com")
+                        .explanation("First explanation")
+                        .email("first@example.com")
+                        .dateAdded(ldt1)
+                        .build();
 
-            LocalDateTime ldt2 = LocalDateTime.parse("2022-03-11T00:00:00");
+                LocalDateTime ldt2 = LocalDateTime.parse("2022-03-11T00:00:00");
 
-            Articles article2 = Articles.builder()
-                    .title("Second Article")
-                    .url("http://second.com")
-                    .explanation("Second explanation")
-                    .email("second@example.com")
-                    .dateAdded(ldt2)
-                    .build();
+                Articles article2 = Articles.builder()
+                        .title("Second Article")
+                        .url("http://second.com")
+                        .explanation("Second explanation")
+                        .email("second@example.com")
+                        .dateAdded(ldt2)
+                        .build();
 
-            ArrayList<Articles> expectedDates = new ArrayList<>();
-            expectedDates.addAll(Arrays.asList(article1, article2));
+                ArrayList<Articles> expectedDates = new ArrayList<>();
+                expectedDates.addAll(Arrays.asList(article1, article2));
 
-            when(articlesRepository.findAll()).thenReturn(expectedDates);
+                when(articlesRepository.findAll()).thenReturn(expectedDates);
 
-            // act
-            MvcResult response = mockMvc.perform(get("/api/articles/all"))
-                            .andExpect(status().isOk()).andReturn();
+                // act
+                MvcResult response = mockMvc.perform(get("/api/articles/all"))
+                                .andExpect(status().isOk()).andReturn();
 
-            // assert
+                // assert
 
-            verify(articlesRepository, times(1)).findAll();
-            String expectedJson = mapper.writeValueAsString(expectedDates);
-            String responseString = response.getResponse().getContentAsString();
-            assertEquals(expectedJson, responseString);
-    }
+                verify(articlesRepository, times(1)).findAll();
+                String expectedJson = mapper.writeValueAsString(expectedDates);
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(expectedJson, responseString);
+        }
 
-    @WithMockUser(roles = { "ADMIN", "USER" })
-    @Test
-    public void an_admin_user_can_post_a_new_articles() throws Exception {
-            // arrange
+        @WithMockUser(roles = { "ADMIN", "USER" })
+        @Test
+        public void an_admin_user_can_post_a_new_articles() throws Exception {
+                // arrange
 
-            LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
 
-            Articles article1 = Articles.builder()
-                    .title("Test Article")
-                    .url("http://example.com")
-                    .explanation("Sample explanation")
-                    .email("test@example.com")
-                    .dateAdded(ldt1)
-                    .build();
+                Articles article1 = Articles.builder()
+                        .title("Test Article")
+                        .url("http://example.com")
+                        .explanation("Sample explanation")
+                        .email("test@example.com")
+                        .dateAdded(ldt1)
+                        .build();
 
-            when(articlesRepository.save(eq(article1))).thenReturn(article1);
+                when(articlesRepository.save(eq(article1))).thenReturn(article1);
 
-            // act
-            MvcResult response = mockMvc.perform(
-                            post("/api/articles/post?title=Test Article&url=http://example.com&explanation=Sample explanation&email=test@example.com&dateAdded=2022-01-03T00:00:00")
-                                            .with(csrf()))
-                            .andExpect(status().isOk()).andReturn();
+                // act
+                MvcResult response = mockMvc.perform(
+                                post("/api/articles/post?title=Test Article&url=http://example.com&explanation=Sample explanation&email=test@example.com&dateAdded=2022-01-03T00:00:00")
+                                                .with(csrf()))
+                                .andExpect(status().isOk()).andReturn();
 
-            // assert
-            verify(articlesRepository, times(1)).save(article1);
-            String expectedJson = mapper.writeValueAsString(article1);
-            String responseString = response.getResponse().getContentAsString();
-            assertEquals(expectedJson, responseString);
-    }
+                // assert
+                verify(articlesRepository, times(1)).save(article1);
+                String expectedJson = mapper.writeValueAsString(article1);
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(expectedJson, responseString);
+        }
+
+        @WithMockUser(roles = { "ADMIN", "USER" })
+        @Test
+        public void admin_can_edit_an_existing_article() throws Exception {
+                // arrange
+
+                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+                LocalDateTime ldt2 = LocalDateTime.parse("2023-01-03T00:00:00");
+
+                Articles articleOrig = Articles.builder()
+                                .title("Original Title")
+                                .url("http://original.com")
+                                .explanation("Original Explanation")
+                                .email("original@example.com")
+                                .dateAdded(ldt1)
+                                .build();
+
+                Articles articleEdited = Articles.builder()
+                                .title("Edited Title")
+                                .url("http://edited.com")
+                                .explanation("Edited Explanation")
+                                .email("edited@example.com")
+                                .dateAdded(ldt2)
+                                .build();
+
+                String requestBody = mapper.writeValueAsString(articleEdited);
+
+                when(articlesRepository.findById(eq(67L))).thenReturn(Optional.of(articleOrig));
+
+                // act
+                MvcResult response = mockMvc.perform(
+                                put("/api/articles?id=67")
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .characterEncoding("utf-8")
+                                                .content(requestBody)
+                                                .with(csrf()))
+                                .andExpect(status().isOk()).andReturn();
+
+                // assert
+                verify(articlesRepository, times(1)).findById(67L);
+                verify(articlesRepository, times(1)).save(articleEdited); // should be saved with correct user
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(requestBody, responseString);
+        }
+
+        @WithMockUser(roles = { "ADMIN", "USER" })
+        @Test
+        public void admin_cannot_edit_article_that_does_not_exist() throws Exception {
+                // arrange
+
+                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+
+                Articles articleEdited = Articles.builder()
+                                .title("Edited Title")
+                                .url("http://edited.com")
+                                .explanation("Edited Explanation")
+                                .email("edited@example.com")
+                                .dateAdded(ldt1)
+                                .build();
+
+                String requestBody = mapper.writeValueAsString(articleEdited);
+
+                when(articlesRepository.findById(eq(67L))).thenReturn(Optional.empty());
+
+                // act
+                MvcResult response = mockMvc.perform(
+                                put("/api/articles?id=67")
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .characterEncoding("utf-8")
+                                                .content(requestBody)
+                                                .with(csrf()))
+                                .andExpect(status().isNotFound()).andReturn();
+
+                // assert
+                verify(articlesRepository, times(1)).findById(67L);
+                Map<String, Object> json = responseToJson(response);
+                assertEquals("Articles with id 67 not found", json.get("message"));
+        }
 
 }
